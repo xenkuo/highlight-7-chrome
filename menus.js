@@ -1,85 +1,78 @@
-/*
-Called when the item has been created, or when creation failed due to an error.
-We'll just log success/failure here.
-*/
-function onCreated () {
-  if (chrome.runtime.lastError) {
-    console.log(`Error: ${chrome.runtime.lastError}`)
+chrome.runtime.onInstalled.addListener(function () {
+  function onCreated () {
+    if (chrome.runtime.lastError) {
+      console.log(`Error: ${chrome.runtime.lastError}`)
+    }
   }
-}
 
-/*
-Create all the context menu items.
-*/
+  chrome.contextMenus.create(
+    {
+      id: 'red',
+      title: chrome.i18n.getMessage('menuItemRed'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
 
-chrome.contextMenus.create(
-  {
-    id: 'red',
-    title: chrome.i18n.getMessage('menuItemRed'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
+  chrome.contextMenus.create(
+    {
+      id: 'orange',
+      title: chrome.i18n.getMessage('menuItemOrange'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
 
-chrome.contextMenus.create(
-  {
-    id: 'orange',
-    title: chrome.i18n.getMessage('menuItemOrange'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
+  chrome.contextMenus.create(
+    {
+      id: 'yellow',
+      title: chrome.i18n.getMessage('menuItemYellow'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
 
-chrome.contextMenus.create(
-  {
-    id: 'yellow',
-    title: chrome.i18n.getMessage('menuItemYellow'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
+  chrome.contextMenus.create(
+    {
+      id: 'green',
+      title: chrome.i18n.getMessage('menuItemGreen'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
 
-chrome.contextMenus.create(
-  {
-    id: 'green',
-    title: chrome.i18n.getMessage('menuItemGreen'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
+  chrome.contextMenus.create(
+    {
+      id: 'blue',
+      title: chrome.i18n.getMessage('menuItemBlue'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
 
-chrome.contextMenus.create(
-  {
-    id: 'blue',
-    title: chrome.i18n.getMessage('menuItemBlue'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
+  chrome.contextMenus.create(
+    {
+      id: 'indigo',
+      title: chrome.i18n.getMessage('menuItemIndigo'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
 
-chrome.contextMenus.create(
-  {
-    id: 'indigo',
-    title: chrome.i18n.getMessage('menuItemIndigo'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
+  chrome.contextMenus.create(
+    {
+      id: 'purple',
+      title: chrome.i18n.getMessage('menuItemPurple'),
+      contexts: ['page', 'editable', 'frame', 'link', 'selection']
+    },
+    onCreated
+  )
+})
 
-chrome.contextMenus.create(
-  {
-    id: 'purple',
-    title: chrome.i18n.getMessage('menuItemPurple'),
-    contexts: ['page', 'editable', 'frame', 'link', 'selection']
-  },
-  onCreated
-)
-/*
-The click event listener, where we perform the appropriate action given the
-ID of the menu item that was clicked.
-*/
 chrome.contextMenus.onClicked.addListener((info, tab) => {
-  console.log(info.menuItemId + ':' + info.selectionText)
+  const id = info.menuItemId || 'red'
+  const text = info.selectionText || ''
+  console.log(`${info.menuItemId}:${id}; ${info.selectionText}:${text}`)
 
   chrome.storage.local.get(
     {
@@ -89,7 +82,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       if (items.enable === true) {
         chrome.storage.local.set(
           {
-            [info.menuItemId]: info.selectionText
+            [id]: text
           },
           function () {
             if (chrome.runtime.lastError) {
@@ -114,7 +107,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             } else {
               chrome.storage.local.set(
                 {
-                  [info.menuItemId]: info.selectionText
+                  [id]: text
                 },
                 function () {
                   if (chrome.runtime.lastError) {

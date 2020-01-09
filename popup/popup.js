@@ -1,16 +1,14 @@
 // helper
 document.getElementById('logo').onclick = function () {
   console.log('logo btn is clicked')
-  chrome.tabs
-    .create({
+  chrome.tabs.create(
+    {
       url: 'https://github.com/xenkuo/highlight-7-chrome'
-    })
-    .then(function (tab) {
+    },
+    tab => {
       console.log(`Created new tab: ${tab.id}`)
-    })
-    .catch(function (e) {
-      console.log(e)
-    })
+    }
+  )
 }
 
 window.onload = function () {
