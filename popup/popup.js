@@ -14,7 +14,7 @@ document.getElementById('logo').onclick = function () {
 window.onload = function () {
   console.log('window onload')
 
-  chrome.storage.local.get(null, function (items) {
+  chrome.storage.sync.get(null, function (items) {
     console.log(items)
     document.getElementById('red').value = items.red || ''
     document.getElementById('orange').value = items.orange || ''
@@ -37,7 +37,7 @@ window.onchange = function (e) {
   let value = e.target.value.trim()
 
   if (id !== 'enable') {
-    chrome.storage.local.set(
+    chrome.storage.sync.set(
       {
         [id]: value
       },
@@ -49,7 +49,7 @@ window.onchange = function (e) {
     )
   } else {
     value = e.target.checked
-    chrome.storage.local.set(
+    chrome.storage.sync.set(
       {
         [id]: value
       },

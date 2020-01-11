@@ -17,14 +17,14 @@
             "16": "icons/hl-7.png",
             "32": "icons/hl-7@2x.png",
             "48": "icons/hl-7@3x.png",
-            "96": "icons/hl-7@6x.png"
+            "128": "icons/hl-7@8x.png"
         }
     },
     "icons": {
         "16": "icons/hl-7.png",
         "32": "icons/hl-7@2x.png",
         "48": "icons/hl-7@3x.png",
-        "96": "icons/hl-7@6x.png"
+        "128": "icons/hl-7@8x.png"
     },
     "background": {
         "scripts": [

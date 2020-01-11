@@ -1,11 +1,7 @@
 function main () {
-  try {
-    var enable = false
-  } catch (error) {
-    return
-  }
+  var enable
   var rainbow
-  var rainbowColor = {
+  const rainbowColor = {
     red: '#ff8a80',
     orange: '#ffd180',
     yellow: '#ffff8d',
@@ -74,13 +70,13 @@ function main () {
     const p = node.parentElement
     const pp = p.parentElement
     const pps = p.previousSibling
-    if (pps !== null && pps.className !== 'HL-7') {
+    if (pps !== null && pps.className !== 'HL-7' && pps.nodeType === 3) {
       content = pps.nodeValue
       pp.removeChild(pps)
     }
     content += word
     const pns = p.nextSibling
-    if (pns !== null && pns.className !== 'HL-7') {
+    if (pns !== null && pns.className !== 'HL-7' && pns.nodeType === 3) {
       content += pns.nodeValue
       pp.removeChild(pns)
     }
@@ -109,7 +105,7 @@ function main () {
     }
   }
 
-  chrome.storage.local.get({ enable: false }, function (items) {
+  chrome.storage.sync.get({ enable: false }, function (items) {
     if (chrome.runtime.lastError) {
       console.log(`Error: ${chrome.runtime.lastError}`)
     } else {
@@ -117,7 +113,7 @@ function main () {
     }
   })
 
-  chrome.storage.local.get(
+  chrome.storage.sync.get(
     {
       red: '',
       orange: '',
@@ -189,4 +185,11 @@ function main () {
   // })
 }
 
-main()
+var running
+if (running === undefined) {
+  main()
+  running = true
+  console.log('first time run highlight.js on this page')
+} else {
+  console.log('try to run highlight.js again on same page')
+}

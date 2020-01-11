@@ -74,13 +74,13 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
   const text = info.selectionText || ''
   console.log(`${info.menuItemId}:${id}; ${info.selectionText}:${text}`)
 
-  chrome.storage.local.get(
+  chrome.storage.sync.get(
     {
       enable: false
     },
     function (items) {
       if (items.enable === true) {
-        chrome.storage.local.set(
+        chrome.storage.sync.set(
           {
             [id]: text
           },
@@ -97,7 +97,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
           }
         )
       } else {
-        chrome.storage.local.set(
+        chrome.storage.sync.set(
           {
             enable: true
           },
@@ -105,7 +105,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
             if (chrome.runtime.lastError) {
               console.log(`Error: ${chrome.runtime.lastError}`)
             } else {
-              chrome.storage.local.set(
+              chrome.storage.sync.set(
                 {
                   [id]: text
                 },
