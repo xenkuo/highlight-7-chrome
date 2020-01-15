@@ -71,7 +71,7 @@ chrome.runtime.onInstalled.addListener(function () {
 
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   const id = info.menuItemId || 'red'
-  const text = info.selectionText || ''
+  const text = info.selectionText.trim() || ''
   console.log(`${info.menuItemId}:${id}; ${info.selectionText}:${text}`)
 
   chrome.storage.sync.get(
